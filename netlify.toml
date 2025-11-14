@@ -1,6 +1,10 @@
 [build]
-  command = "flutter build web --release --no-tree-shake-icons"
+  command = "echo 'Build handled by GitHub Actions - deploying pre-built web files'"
   publish = "build/web"
+
+[build.environment]
+  # No build needed - web files pre-built by GitHub Actions
+  SKIP_BUILD = "true"
 
 [[redirects]]
   from = "/*"

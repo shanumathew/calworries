@@ -10,6 +10,10 @@ jobs:
   build:
     name: Build Verification
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+      pull-requests: write
     
     steps:
       - name: Checkout code
@@ -28,20 +32,45 @@ jobs:
         run: dart run build_runner build --delete-conflicting-outputs
 
       - name: Analyze code
-        run: flutter analyze
+        run: flutter analyze --fatal-infos
 
       - name: Run tests
-        run: flutter test
+        run: flutter test --coverage
 
       - name: Build Flutter Web
         run: flutter build web --release --no-tree-shake-icons
 
+      - name: Check build artifacts
+        run: |
+          if [ -f "build/web/index.html" ]; then
+            echo "✅ Build successful - index.html exists"
+            du -sh build/web
+          else
+            echo "❌ Build failed - index.html not found"
+            exit 1
+          fi
+
       - name: Upload Web Build Artifact
+        if: success()
         uses: actions/upload-artifact@v3
         with:
           name: calworries-web-build
           path: build/web
           retention-days: 5
+          if-no-files-found: error
+
+      - name: Upload coverage reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage
+          retention-days: 3
 
       - name: Build successful ✅
-        run: echo "Flutter web build completed successfully!"
+        if: success()
+        run: echo "✨ Flutter web build completed successfully!"
+
+      - name: Build failed ❌
+        if: failure()
+        run: echo "❌ Build verification failed. Check logs for details."

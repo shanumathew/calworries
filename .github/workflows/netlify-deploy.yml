@@ -10,6 +10,10 @@ jobs:
   build_and_deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      deployments: write
     
     steps:
       - name: Checkout code
@@ -27,11 +31,14 @@ jobs:
       - name: Run code generation
         run: dart run build_runner build --delete-conflicting-outputs
 
+      - name: Analyze code
+        run: flutter analyze
+
       - name: Build Flutter Web
         run: flutter build web --release --no-tree-shake-icons
 
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v2.0
+        uses: nwtgck/actions-netlify@v2.1.0
         with:
           publish-dir: './build/web'
           production-branch: main
@@ -39,10 +46,16 @@ jobs:
           deploy-message: 'Deploy from GitHub Actions - ${{ github.event_name }} to ${{ github.ref }}'
           enable-pull-request-comment: true
           enable-commit-comment: true
+          netlify-config-path: './netlify.toml'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        timeout-minutes: 5
+        timeout-minutes: 10
 
       - name: Deployment successful ✅
-        run: echo "Successfully deployed to Netlify!"
+        if: success()
+        run: echo "✨ Successfully deployed to Netlify!"
+
+      - name: Deployment failed ❌
+        if: failure()
+        run: echo "❌ Deployment failed. Check logs for details."
