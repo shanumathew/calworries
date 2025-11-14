@@ -259,7 +259,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 shoppingProvider.toggleShoppingItem(item),
                             title: Text(item.itemName),
                             subtitle: Text('${item.quantity} ${item.unit}'),
-                            trailing: IconButton(
+                            secondary: IconButton(
                               icon: const Icon(Icons.delete_outline),
                               onPressed: () => shoppingProvider
                                   .removeFromShoppingList(item.id),
@@ -289,7 +289,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ),
                             ),
                             subtitle: Text('${item.quantity} ${item.unit}'),
-                            trailing: IconButton(
+                            secondary: IconButton(
                               icon: const Icon(Icons.delete_outline),
                               onPressed: () => shoppingProvider
                                   .removeFromShoppingList(item.id),
@@ -331,19 +331,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         height: 200,
                         child: LineChart(
                           LineChartData(
-                            gridData: const FlGridData(show: true),
-                            titlesData: const FlTitlesData(show: true),
+                            gridData: FlGridData(show: true),
+                            titlesData: FlTitlesData(show: true),
                             borderData: FlBorderData(show: true),
                             lineBarsData: [
                               LineChartBarData(
-                                spots: [
-                                  const FlSpot(0, 2000),
-                                  const FlSpot(1, 2200),
-                                  const FlSpot(2, 2100),
-                                  const FlSpot(3, 2300),
-                                  const FlSpot(4, 2000),
-                                  const FlSpot(5, 2400),
-                                  const FlSpot(6, 2100),
+                                spots: const [
+                                  FlSpot(0, 2000),
+                                  FlSpot(1, 2200),
+                                  FlSpot(2, 2100),
+                                  FlSpot(3, 2300),
+                                  FlSpot(4, 2000),
+                                  FlSpot(5, 2400),
+                                  FlSpot(6, 2100),
                                 ],
                                 isCurved: true,
                                 color: Colors.blue,

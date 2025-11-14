@@ -23,7 +23,7 @@ class SeedDataProvider {
         await _seedSpending();
       }
     } catch (e) {
-      print('Error seeding data: $e');
+      // Error seeding data
     }
   }
 

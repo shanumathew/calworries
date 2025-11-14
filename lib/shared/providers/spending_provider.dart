@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:calworries/features/shopping/data/models/spending_record.dart';
 import 'package:calworries/core/services/hive_service.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +18,7 @@ class SpendingProvider extends ChangeNotifier {
       _records = box.values.toList();
       _records.sort((a, b) => b.purchasedAt.compareTo(a.purchasedAt));
     } catch (e) {
-      print('Error loading spending records: $e');
+      // Error loading spending records
     }
   }
 
@@ -30,7 +29,7 @@ class SpendingProvider extends ChangeNotifier {
       _loadRecords();
       notifyListeners();
     } catch (e) {
-      print('Error adding spending record: $e');
+      // Error adding spending record
     }
   }
 
@@ -41,7 +40,7 @@ class SpendingProvider extends ChangeNotifier {
       _loadRecords();
       notifyListeners();
     } catch (e) {
-      print('Error deleting spending record: $e');
+      // Error deleting spending record
     }
   }
 

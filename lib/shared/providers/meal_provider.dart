@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:calworries/features/meals/data/models/meal.dart';
 import 'package:calworries/features/meals/data/models/ingredient.dart';
 import 'package:calworries/core/services/hive_service.dart';
@@ -23,7 +22,7 @@ class MealProvider extends ChangeNotifier {
       _meals = box.values.toList();
       _meals.sort((a, b) => b.createdAt.compareTo(a.createdAt));
     } catch (e) {
-      print('Error loading meals: $e');
+      // Error loading meals
     }
   }
 
@@ -32,7 +31,7 @@ class MealProvider extends ChangeNotifier {
       final box = HiveService.getIngredientsBox();
       _ingredients = box.values.toList();
     } catch (e) {
-      print('Error loading ingredients: $e');
+      // Error loading ingredients
     }
   }
 
@@ -51,7 +50,7 @@ class MealProvider extends ChangeNotifier {
       _loadIngredients();
       notifyListeners();
     } catch (e) {
-      print('Error adding meal: $e');
+      // Error adding meal
     }
   }
 
@@ -62,7 +61,7 @@ class MealProvider extends ChangeNotifier {
       _loadMeals();
       notifyListeners();
     } catch (e) {
-      print('Error deleting meal: $e');
+      // Error deleting meal
     }
   }
 
@@ -73,7 +72,7 @@ class MealProvider extends ChangeNotifier {
       _loadIngredients();
       notifyListeners();
     } catch (e) {
-      print('Error adding ingredient: $e');
+      // Error adding ingredient
     }
   }
 

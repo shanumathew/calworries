@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:calworries/features/shopping/data/models/grocery_item.dart';
 import 'package:calworries/features/shopping/data/models/shopping_list_item.dart';
 import 'package:calworries/core/services/hive_service.dart';
@@ -25,7 +24,7 @@ class ShoppingProvider extends ChangeNotifier {
       final box = HiveService.getGroceriesBox();
       _groceries = box.values.toList();
     } catch (e) {
-      print('Error loading groceries: $e');
+      // Error loading groceries
     }
   }
 
@@ -35,7 +34,7 @@ class ShoppingProvider extends ChangeNotifier {
       _shoppingList = box.values.toList();
       _shoppingList.sort((a, b) => b.addedAt.compareTo(a.addedAt));
     } catch (e) {
-      print('Error loading shopping list: $e');
+      // Error loading shopping list
     }
   }
 
@@ -46,7 +45,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadGroceries();
       notifyListeners();
     } catch (e) {
-      print('Error adding grocery: $e');
+      // Error adding grocery
     }
   }
 
@@ -57,7 +56,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadGroceries();
       notifyListeners();
     } catch (e) {
-      print('Error updating grocery: $e');
+      // Error updating grocery
     }
   }
 
@@ -68,7 +67,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadGroceries();
       notifyListeners();
     } catch (e) {
-      print('Error deleting grocery: $e');
+      // Error deleting grocery
     }
   }
 
@@ -79,7 +78,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadShoppingList();
       notifyListeners();
     } catch (e) {
-      print('Error adding to shopping list: $e');
+      // Error adding to shopping list
     }
   }
 
@@ -90,7 +89,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadShoppingList();
       notifyListeners();
     } catch (e) {
-      print('Error removing from shopping list: $e');
+      // Error removing from shopping list
     }
   }
 
@@ -102,7 +101,7 @@ class ShoppingProvider extends ChangeNotifier {
       _loadShoppingList();
       notifyListeners();
     } catch (e) {
-      print('Error toggling shopping item: $e');
+      // Error toggling shopping item
     }
   }
 
